@@ -9,9 +9,16 @@ public class PlayerController : MonoBehaviour
     private float speed;
     [SerializeField]
     private float jumpHight;
+    [SerializeField]
+    private float gravityScale = 5f;
+    [SerializeField]
+    private float fallGravityScale = 15f;
+    [SerializeField]
+    private float buttonPressedTimeWindow = 1f;
+    private float buttonPressedTime;
+    private bool jumping;
 
-    private bool isColliding = false;
-    private Vector3 Velocity;
+    private Vector3 velocity;
     private Rigidbody2D rb;
 
 
@@ -22,12 +29,23 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Velocity.x = Input.GetAxisRaw("Horizontal");
-        Velocity.z = 0;
+        velocity.x = Input.GetAxisRaw("Horizontal");
+        velocity.z = 0;
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            rb.AddForce(Vector2.up * jumpHight);
+            rb.gravityScale = gravityScale;
+            jumping = true;
         }
-        transform.position += Velocity * speed * Time.deltaTime;
+        if (jumping)
+        {
+            buttonPressedTime += Time.deltaTime;
+            rb.velocity = new Vector2(rb.velocity.x, jumpHight);
+
+            if (buttonPressedTime > buttonPressedTimeWindow || Input.GetKeyUp(KeyCode.Space))
+            {
+                jumping = false;
+            }
+        }
+        transform.position += velocity * speed * Time.deltaTime;
     }
 }
