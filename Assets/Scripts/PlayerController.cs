@@ -10,8 +10,15 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private float jumpHight;
 
+    private bool isColliding = false;
     private Vector3 Velocity;
+    private Rigidbody2D rb;
 
+
+    private void Start()
+    {
+        rb = GetComponent<Rigidbody2D>();
+    }
     // Update is called once per frame
     void Update()
     {
@@ -19,11 +26,7 @@ public class PlayerController : MonoBehaviour
         Velocity.z = 0;
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            
-        }
-        else
-        {
-             Velocity.y = 0;
+            rb.AddForce(Vector2.up * jumpHight);
         }
         transform.position += Velocity * speed * Time.deltaTime;
     }

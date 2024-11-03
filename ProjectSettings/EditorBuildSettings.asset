@@ -11,5 +11,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Sol.unity
     guid: 9f4a884ce3b96f647b6c1da589eada1f
+  - enabled: 1
+    path: Assets/Scenes/Trial 1.unity
+    guid: a500e714e2a66334a8b17a98df0c838f
   m_configObjects: {}
   m_UseUCBPForAssetBundles: 0
